@@ -6,6 +6,7 @@
     cursor: pointer;
     font-size: 12px;
     padding: 7px 10px 7px 10px;
+    text-align: center;
 
     transition: color .3s ease;
 
@@ -27,6 +28,16 @@
     }
     &:hover{
         background-color: darken($color: $primary, $amount: 15);
+    }
+}
+
+.btn-danger {
+    background-color: red;
+
+    transition: background-color 0.3s ease;
+
+    &:hover{
+        background-color: darken($color: red, $amount: 10);
     }
 }
 

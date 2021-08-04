@@ -2,6 +2,7 @@ import { types } from "../types/types";
 import {db, googleAuthProvider, firebase} from '../firebase/firebaseConfig';
 import { finishLoadingAction, startLoadingAction } from "./ui";
 import Swal from 'sweetalert2';
+import {logoutNote} from './notes';
 
 export const startLoginEmailPass = (email, password) => {
     return (dispatch) => {
@@ -56,7 +57,6 @@ export const loginAction = (uid, displayName) =>{
             uid,
             displayName
         }
-
     }
 }
 
@@ -70,6 +70,7 @@ export const startLogoutAction = () =>{
         });
 
         dispatch(logoutAction());
+        dispatch(logoutNote());
     }
 
 }

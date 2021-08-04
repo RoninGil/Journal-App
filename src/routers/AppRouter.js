@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import {
     BrowserRouter as Router,
-    Switch,
-    Route,
-    Redirect
+    Switch
   } from "react-router-dom";
 import {firebase} from '../firebase/firebaseConfig';
 import { JournalPage } from '../components/journal/JournalPage'
@@ -12,6 +10,7 @@ import { useDispatch } from 'react-redux';
 import { loginAction } from '../actions/auth';
 import { PublicRoute } from './PublicRoute';
 import { PrivateRoute } from './PrivateRoute';
+import { startLoadingNotes } from '../actions/notes';
 
 export const AppRouter = () => {
     const dispatch = useDispatch();
@@ -21,12 +20,13 @@ export const AppRouter = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     useEffect(() => { //AUTENTICACION: SIEMPRE VA A CHECAR LA AUTENTICACION DESDE FIREBASE
-        firebase.auth().onAuthStateChanged( (user) => {
+        firebase.auth().onAuthStateChanged( async(user) => {
             if(user?.uid){
 
                 dispatch(loginAction(user.uid, user.displayName));
                 setIsLoggedIn(true);
-
+                dispatch(startLoadingNotes(user.uid));
+                
             } else{
 
                 setIsLoggedIn(false);
